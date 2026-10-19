@@ -14,4 +14,5 @@ def deriveKey(masterPassword: str, salt: bytes) -> bytes:
     keyDerivationFunction = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=iter)
     return base64.urlsafe_b64decode(keyDerivationFunction(masterPassword.encode()))
 
-def encrypt()
+def encrypt(data: bytes, key: bytes) ->bytes:
+    return Fernet(key).encrypt(data)
