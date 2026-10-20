@@ -20,7 +20,7 @@ def deriveKey(masterPassword: str, salt: bytes) -> bytes:
         length=32, 
         salt=salt, 
         iterations=iter)
-    return base64.urlsafe_b64decode(keyDerivationFunction.derive(masterPassword.encode()))
+    return base64.urlsafe_b64encode(keyDerivationFunction.derive(masterPassword.encode()))
 
 def encrypt(data: bytes, key: bytes) ->bytes:
     """encrypt data using fernet from cryptography 
