@@ -43,7 +43,7 @@ def create_page():
         elif pw != pw2:#ensure both entries are the same
             st.error("Passwords do not match.")
         else:
-            vault.create(pw)#if requirments are met creates encrypted vault and opens it
+            vault.createVault(pw)#if requirments are met creates encrypted vault and opens it
             st.session_state.unlocked = True
             st.rerun()
 
@@ -54,7 +54,7 @@ def login_page():
     pw = st.text_input("Master password", type="password")
 
     if st.button("Unlock"):
-        if vault.unlock(pw):#if its true unlocks the vault
+        if 	vault.unlockVault(pw):#if its true unlocks the vault
             st.session_state.unlocked = True
             st.rerun()
         else:
@@ -100,7 +100,7 @@ def vault_page():
         if st.session_state.deleting == i:
             st.warning(f"Delete {entry['site']}? This cannot be undone.")
             if st.button("Yes, delete", key=f"yes{i}"):
-                vault.delete_entry(i)
+                vault.deletePassEntry(i)
                 st.session_state.deleting = None
                 st.session_state.revealed = []
                 st.rerun()
@@ -122,7 +122,7 @@ def edit_form(i, entry):
         if site == "" or pw == "":
             st.error("Site and password cannot be empty.")
         else:
-            vault.update_entry(i, site, user, pw)#to save changes 
+            vault.updatePassEntry(i, site, user, pw)#to save changes 
             st.session_state.editing = None
             st.rerun()
     if st.button("Cancel edit"):
@@ -141,7 +141,7 @@ def add_page():#boxes for site,username and password,with the strength label
         if site == "" or pw == "":
             st.error("Site and password are required.")
         else:
-            vault.add_entry(site, user, pw)
+            vault.addPassEntry(site, user, pw)
             st.success(f"Saved {site}.")
 
     st.subheader("Password generator")
