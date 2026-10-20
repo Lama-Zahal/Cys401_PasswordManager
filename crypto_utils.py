@@ -15,8 +15,12 @@ def deriveKey(masterPassword: str, salt: bytes) -> bytes:
     """takes the master password string and the salt 
     then encode the text to bytes. Same password and salt always gives the same key.
     The purpose of this function is to make the master key not a stored object it is derived from password and a random salt"""
-    keyDerivationFunction = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=iter)
-    return base64.urlsafe_b64decode(keyDerivationFunction(masterPassword.encode()))
+    keyDerivationFunction = PBKDF2HMAC(
+        algorithm=hashes.SHA256(), 
+        length=32, 
+        salt=salt, 
+        iterations=iter)
+    return base64.urlsafe_b64decode(keyDerivationFunction.derive(masterPassword.encode()))
 
 def encrypt(data: bytes, key: bytes) ->bytes:
     """encrypt data using fernet from cryptography 

@@ -20,12 +20,12 @@ class Vault:
         self.salt = keySalt() #generate a new salt
         self.key = deriveKey(masterPassword, self.salt) #derives the key using the typed password and the salt generated
         self.entries = []
-        self.save()
+        self.saveVault()
 
     def unlockVault(self, masterPassword: str) ->bool:
         """Returns true if the master password is correct--> used to unlock the vault"""
         with open(self.path, "rb") as file:
-            data = file.read #open file in read binary mode and reads the content as bytes
+            data = file.read() #open file in read binary mode and reads the content as bytes
         salt, token = data[:16], data[16:] #salt is the first 16 bytes, everything after is the data named as token
         key = deriveKey(masterPassword, salt) #derive the key by using the password and the salt
         try: 
@@ -49,18 +49,18 @@ class Vault:
         self.entries.append(
             {"site":site, "username": username, "password": password}
         )
-        self.save()
+        self.saveVault()
 
     def updatePassEntry(self, index, site, username, password): 
         """Replaces an entry in the file at a certain position then saves it"""
         self.entries[index] = {
             "site":site, "username":username, "password":password
         }
-        self.save()
+        self.saveVault()
 
     def deletePassEntry(self, index):
         """Deletes an entry at a certain position the saves it"""
         del self.entries[index]
-        self.save()
+        self.saveVault()
 
 
