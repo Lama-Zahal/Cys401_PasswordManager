@@ -10,7 +10,7 @@ class Vault:
         self.path = path
         self.key = None
         self.salt = None
-        self.entries: [] #innitialize empty list to store passwrod info: site, username, password
+        self.entries = [] #innitialize empty list to store passwrod info: site, username, password
 
     def exists(self) -> bool:
         return os.path.exists(self.path)
