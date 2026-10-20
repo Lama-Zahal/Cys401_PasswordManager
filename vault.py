@@ -3,8 +3,7 @@ import os
 from cryptography.fernet import InvalidToken
 from crypto_utils import keySalt, deriveKey, encrypt, decrypt
 
-#VaultFile = "vault.dat" #the vault file name
-VaultFile = os.path.join(os.path.expanduser("~"), ".passmanager", "vault.dat")
+VaultFile = "vault.dat" #the vault file name
 
 class Vault: 
     def __init__(self, path = VaultFile): 
@@ -42,8 +41,7 @@ class Vault:
         then writes salt and the entries (tokens) to the file
         """
         token = encrypt(json.dumps(self.entries).encode(), self.key)
-        #os.makedirs(os.path.dirname(self.path), exist_ok=True)
-        os.makedirs(os.path.dirname(self.path), mode=0o700, exist_ok=True)
+        os.makedirs(os.path.dirname(self.path), exist_ok=True)
         with open(self.path, "wb") as file: #writes in bytes
             file.write(self.salt + token) #write sault first in the file then the entries
         
