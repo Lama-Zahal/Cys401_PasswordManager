@@ -12,11 +12,17 @@ a small secure password manager made using python. It stores accounts passwords 
 ## Project Structure
 password-manager/
 ├── crypto_utils.py    # key derivation, encrypt, decrypt
+
 ├── vault.py           # create, unlock, save, add/edit/delete entries
+
 ├── generator.py       # password generator, strength checker, reuse detector
+
 ├── ui.py              # Streamlit interface
+
 ├── requirements.txt   # libraries needed
+
 ├── .gitignore         # keeps vault files out of GitHub
+
 └── README.md
 
 ## How to run
@@ -31,3 +37,9 @@ in the terminal
 - Use: entries are held in memory while the vault is unlocked.
 - Save: every add, edit or delete encrypts the whole list again and overwrites the file.
 
+## Security design
+- Fernet (AES + HMAC) -->	A reviewed library, so we do not invent our own encryption. It also detects tampering.
+- PBKDF2-HMAC-SHA256, 600,000 iterations -->	Deliberately slow, so guessing the master password is expensive for an attacker.
+- Random 16-byte salt -->	Gives every vault a different key and defeats precomputed lookup tables.
+- secrets instead of random	secrets --> is designed for security; random is predictable.
+- No stored master password or hash	--> A wrong password produces a wrong key, and decryption fails. That failure is the login check.
