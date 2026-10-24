@@ -11,6 +11,7 @@ a small secure password manager made using python. It stores accounts passwords 
 
 ## Project Structure
 password-manager/
+
 ├── crypto_utils.py    # key derivation, encrypt, decrypt
 
 ├── vault.py           # create, unlock, save, add/edit/delete entries
