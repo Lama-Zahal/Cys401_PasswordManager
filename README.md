@@ -5,7 +5,7 @@ a small secure password manager made using python. It stores accounts passwords 
 - One **master password** unlocks the vault and is never stored anywhere. The program generates a 16 byte random salt when the vault is created and a key is derived from the password and the salt.
 - **Encrypted vault file** entries are encrypted using AES via Fernet library.
 - **Password generator** is done using python secret module
-- **Strength checker** rates the password strength as weak, medium, strong and gives tips
+- **Strength checker** rates the password strength as weak, medium, strong
 - **Reuse detector** flag passwords used more than once on diferent websites
 - **Web Interface** built with streamlit
 
